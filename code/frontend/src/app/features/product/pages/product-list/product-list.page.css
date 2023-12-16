@@ -1,0 +1,36 @@
+.table {
+  width: 100%;
+}
+
+.mat-column-code {
+  width: 10%;
+  vertical-align: middle;
+
+}
+.mat-column-name {
+  width: 25%;
+  vertical-align: middle;
+
+}
+.mat-column-category {
+  width: 25%;
+  vertical-align: middle;
+
+}
+.mat-column-price {
+  width: 10%;
+  vertical-align: middle;
+
+}
+.mat-column-quantaty {
+  width: 10%;
+  vertical-align: middle;
+
+}
+
+.mat-column-actions {
+  width: 10%;
+  align-items: center;
+  vertical-align: middle;
+
+}

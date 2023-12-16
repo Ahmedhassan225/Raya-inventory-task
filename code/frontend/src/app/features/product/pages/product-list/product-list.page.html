@@ -1,0 +1,103 @@
+<mat-card class="my-4">
+  <mat-card-header>
+    <mat-card-title>Search Inventory</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>	
+    <div class="row px-3">
+      <div class="form-group col-md-2">
+          <label>product Code</label>
+          <input type="text" (keydown.enter)="list()" class="form-control" name="productCode" [(ngModel)]="searchModel.productCode">
+      </div>
+      <div class="form-group col-md-2">
+        <label>product Name</label>
+        <input type="text" (keydown.enter)="list()" class="form-control" name="productCode" [(ngModel)]="searchModel.productName">
+      </div>
+      <div class="form-group col-md-2">
+        <label>category</label>
+
+        <select class="form-select" aria-label="Default select example" [(ngModel)]="searchModel.categoryId">
+          <option selected></option>
+          <option *ngFor="let item of categorySelectModel" [value]="item.id">{{item.name}}</option>
+        </select>
+    </div>
+    <div class="form-group col-md-2">
+      <label>Order by</label>
+
+      <select class="form-select" aria-label="Default select example" [(ngModel)]="searchModel.orderBy">
+        <option selected></option>
+        <option *ngFor="let item of orderSelectModel" [value]="item.id">{{item.name}}</option>
+      </select>
+  </div>
+  </div>
+  </mat-card-content>
+  <mat-card-actions>
+      <div class="d-flex justify-content-end align-items-center w-100 mt-3">
+        <button class="mx-2" mat-flat-button (click)="search()" color="primary">Search</button>
+        <button class="mx-2" mat-flat-button (click)="clear()">Clear</button>
+      </div>
+  </mat-card-actions>
+  <mat-card-footer *ngIf="isLoadingResults">
+    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+  </mat-card-footer>
+</mat-card>
+
+<div class="mat-elevation-z8">
+  <div class="d-flex justify-content-center align-items-center w-100 mt-3">
+    <button (click)="openProductDialog(null, 1)" class="m-2" mat-flat-button color="primary">
+      Insert Item <mat-icon>add_task</mat-icon>
+    </button>
+  </div>
+    <table mat-table  [dataSource]="dataSource" class="table">
+      <!-- Position Column -->
+      <ng-container matColumnDef="code">
+        <th mat-header-cell *matHeaderCellDef> Code </th>
+        <td mat-cell *matCellDef="let element"> {{element.productCode}} </td>
+      </ng-container>
+  
+      <!-- Name Column -->
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef> Name </th>
+        <td mat-cell *matCellDef="let element"> {{element.productName}} </td>
+      </ng-container>
+
+      <!-- Name Column -->
+      <ng-container matColumnDef="category">
+        <th mat-header-cell *matHeaderCellDef> Category </th>
+        <td mat-cell *matCellDef="let element"> {{element.categoryName}} </td>
+      </ng-container>
+  
+      <!-- Weight Column -->
+      <ng-container matColumnDef="price">
+        <th mat-header-cell *matHeaderCellDef> Price $</th>
+        <td mat-cell *matCellDef="let element"> {{element.productPrice | number:'0.2-4' }} </td>
+      </ng-container>
+  
+      <!-- Symbol Column -->
+      <ng-container matColumnDef="quantaty">
+        <th mat-header-cell *matHeaderCellDef> Quantaty </th>
+        <td mat-cell *matCellDef="let element"> {{element.productQuantaty}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef> </th>
+        <td class="m-1 d-flex justify-content-center align-items-center" mat-cell *matCellDef="let element"> 
+          <button class="mx-1" (click)="openProductDialog(element, 2)" mat-mini-fab color="basic" aria-label="Example icon button with a filter list icon">
+            <mat-icon>mode_edit</mat-icon>
+          </button>
+          <button class="mx-1" (click)="confirmDelete(element.productId)" mat-mini-fab color="warn" aria-label="Example icon button with a filter list icon">
+            <mat-icon>delete</mat-icon>
+          </button> 
+          <button class="mx-1" mat-mini-fab (click)="openTransactionDialog(element.productId)" color="primary" aria-label="Example icon button with a filter list icon">
+            <mat-icon>swap_horiz</mat-icon>
+          </button>       
+        </td>
+      </ng-container>
+  
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  
+    <mat-paginator [length]="totalRows" [pageIndex]="currentPage" [pageSize]="pageSize"
+    [pageSizeOptions]="pageSizeOptions" (page)="pageChanged($event)" aria-label="Select page" showFirstLastButtons >
+    </mat-paginator>
+  </div>

@@ -1,0 +1,22 @@
+<mat-toolbar color="primary">
+    <span class="mx-4">Simple Inventory - Raya Task</span>
+
+    <ul class="navbar-nav flex-column flex-lg-row w-100">
+        <li class="nav-item mx-2">
+            <a class="nav-link text-light" id="accessManagementDropMenu" routerLink="/" aria-haspopup="true" aria-expanded="false">
+            <span>Inventory</span>
+        </a>
+        </li>
+        <li class="nav-item mx-2">
+            <a class="nav-link text-light dropdown-toggle" id="accessManagementDropMenu"
+                data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <span class="nav-home-icon"></span>
+                <span>reports</span>
+            </a>
+            <div class="dropdown-menu dropdown-menu-ver dropdown-menu-end dropdown-menu-scroll borderRadius10"
+                aria-labelledby="accessManagementDropMenu">
+                <a class="dropdown-item" routerLink="/report/product">Products</a>
+            </div>
+        </li>
+    </ul>
+</mat-toolbar>

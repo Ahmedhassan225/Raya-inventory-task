@@ -1,0 +1,40 @@
+<mat-card class="my-4">
+    <mat-card-header>
+      <mat-card-title>Search Inventory</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>	
+      <div class="row px-3">
+        <div class="form-group col-md-2">
+          <label>category</label>
+  
+          <select class="form-select" aria-label="Default select example" [(ngModel)]="searchModel.categoryId">
+            <option selected></option>
+            <option *ngFor="let item of categorySelectModel" [value]="item.id">{{item.name}}</option>
+          </select>
+      </div>
+      <div class="form-group col-md-2">
+        <label>Order by</label>
+  
+        <select class="form-select" aria-label="Default select example" [(ngModel)]="searchModel.orderBy">
+          <option selected></option>
+          <option *ngFor="let item of orderSelectModel" [value]="item.id">{{item.name}}</option>
+        </select>
+    </div>
+    </div>
+    </mat-card-content>
+    <mat-card-actions>
+        <div class="d-flex justify-content-end align-items-center w-100 mt-3">
+          <button class="mx-2" mat-flat-button color="primary" (click)="LoadReport()">Search</button>
+          <button class="mx-2" mat-flat-button >Clear</button>
+        </div>
+    </mat-card-actions>
+    <mat-card-footer *ngIf="isLoading" >
+      <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+    </mat-card-footer>
+  </mat-card>
+
+  <div style="margin: auto;width: 100%" *ngIf="pdfPreviewURL" class="loader-container">
+    <iframe  (load)="isLoading=false" id="frame-view"  width="100%" height="800"
+     [src]="pdfPreviewURL"
+    ></iframe>
+</div>
